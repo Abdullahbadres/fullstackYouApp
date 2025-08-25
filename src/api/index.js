@@ -2,10 +2,15 @@ import { clientStorage } from "./client-storage"
 
 class ApiService {
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"
+    // For production deployment, use the current domain if no API base URL is provided
+    this.baseURL =
+      process.env.NEXT_PUBLIC_API_BASE_URL ||
+      (typeof window !== "undefined" ? window.location.origin : "http://localhost:3001")
     this.useMockApi = process.env.NEXT_PUBLIC_USE_MOCK_API === "true"
+
     console.log("🌐 API Service initialized with base URL:", this.baseURL)
     console.log("🎭 Use Mock API:", this.useMockApi)
+    console.log("🌍 Environment:", process.env.NODE_ENV || "development")
 
     if (this.useMockApi) {
       console.log("🎭 Mock API is enabled - all operations will use localStorage")
@@ -106,7 +111,7 @@ class ApiService {
     }
 
     try {
-      console.log("📝 Register API call to local backend:", { ...data, password: "***" })
+      console.log("📝 Register API call to backend:", { ...data, password: "***" })
       console.log("🌐 Using backend URL:", this.baseURL)
 
       const response = await fetch(`${this.baseURL}/api/auth/register`, {
@@ -157,10 +162,10 @@ class ApiService {
     } catch (error) {
       console.error("💥 Register error:", error)
 
-      // If local backend fails, don't fallback to external API for registration
+      // If backend fails, don't fallback to external API for registration
       if (error.message.includes("fetch")) {
         throw new Error(
-          "Unable to connect to local backend. Please make sure the backend server is running on " + this.baseURL,
+          "Unable to connect to backend. Please make sure the backend server is running on " + this.baseURL,
         )
       }
 
@@ -206,7 +211,7 @@ class ApiService {
     }
 
     try {
-      console.log("🔐 Login API call to local backend:", { ...data, password: "***" })
+      console.log("🔐 Login API call to backend:", { ...data, password: "***" })
       console.log("🌐 Using backend URL:", this.baseURL)
 
       const loginPayload = {
@@ -262,10 +267,10 @@ class ApiService {
     } catch (error) {
       console.error("💥 Login error:", error)
 
-      // If local backend fails, don't fallback to external API
+      // If backend fails, don't fallback to external API
       if (error.message.includes("fetch")) {
         throw new Error(
-          "Unable to connect to local backend. Please make sure the backend server is running on " + this.baseURL,
+          "Unable to connect to backend. Please make sure the backend server is running on " + this.baseURL,
         )
       }
 
