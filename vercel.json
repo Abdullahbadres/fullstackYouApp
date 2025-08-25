@@ -4,7 +4,7 @@
   "framework": "nextjs",
   "installCommand": "npm install",
   "devCommand": "npm run dev",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./src ./public ./package.json ./tsconfig.json ./next.config.mjs ./tailwind.config.ts",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./src ./package.json ./tsconfig.json ./next.config.mjs ./tailwind.config.ts",
   "functions": {
     "src/app/api/**/*.ts": {
       "runtime": "nodejs18.x"
