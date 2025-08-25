@@ -12,6 +12,21 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Exclude backend files from compilation
+  webpack: (config, { isServer }) => {
+    // Ignore backend files during build
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: [
+        '**/node_modules/**',
+        '**/backend/**',
+        '**/.git/**',
+        '**/.next/**',
+      ],
+    }
+    
+    return config
+  },
 }
 
 export default nextConfig
