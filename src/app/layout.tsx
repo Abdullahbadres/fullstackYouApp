@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "YouApp - Connect and Discover",
   description: "Connect and discover new people with YouApp",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({
